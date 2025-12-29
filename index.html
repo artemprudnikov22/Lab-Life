@@ -348,12 +348,13 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* ИСПРАВЛЕНО: Увеличена высота, уменьшен текст */
         .current-goal-text {
-            font-size: 1.3rem;
+            font-size: 1.1rem; /* Уменьшен размер текста */
             font-weight: 500;
             margin: 15px 0;
             line-height: 1.4;
-            min-height: 80px;
+            min-height: 100px; /* Увеличена минимальная высота */
             padding: 20px;
             background: rgba(15, 23, 42, 0.5);
             border-radius: var(--border-radius-sm);
@@ -362,25 +363,25 @@
             display: flex;
             align-items: center;
             word-break: break-word;
+            overflow: hidden;
         }
 
         .current-goal-text span {
-            max-height: 80px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
+            max-height: 100px; /* Соответствует новой высоте */
+            overflow: auto; /* Добавлена прокрутка если не умещается */
+            display: block;
+            width: 100%;
         }
 
         @media (max-width: 768px) {
             .current-goal-text {
-                font-size: 1.1rem;
-                min-height: 70px;
+                font-size: 1rem;
+                min-height: 90px;
                 padding: 15px;
             }
             
             .current-goal-text span {
-                -webkit-line-clamp: 2;
+                max-height: 90px;
             }
         }
 
@@ -491,6 +492,7 @@
             box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
         }
 
+        /* ИСПРАВЛЕНО: Упрощен placeholder текст */
         .placeholder-text {
             position: absolute;
             top: 20px;
@@ -665,59 +667,7 @@
             display: block;
         }
 
-        /* Share Section - компактная */
-        .share-section {
-            text-align: center;
-            padding: 20px;
-            border-radius: var(--border-radius);
-            background: rgba(139, 92, 246, 0.05);
-            border: 1px solid rgba(139, 92, 246, 0.1);
-            margin-top: 20px;
-            transition: var(--transition);
-        }
-
-        .share-section:hover {
-            background: rgba(139, 92, 246, 0.08);
-            border-color: rgba(139, 92, 246, 0.2);
-        }
-
-        .share-title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            color: var(--light);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .share-icon {
-            color: var(--primary-light);
-        }
-
-        .share-button {
-            background: var(--gradient);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: var(--border-radius-sm);
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .share-button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
+        /* ИСПРАВЛЕНО: Удален блок "Поделиться приложением" */
 
         /* Wishlist */
         .wishlist-container {
@@ -909,6 +859,15 @@
             opacity: 0.7;
             transform: scale(0.98);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ИСПРАВЛЕНО: Добавлен draggable стиль для десктопа */
+        .wish-item.draggable {
+            cursor: grab;
+        }
+
+        .wish-item.draggable:active {
+            cursor: grabbing;
         }
 
         .wish-text {
@@ -1415,11 +1374,13 @@
                     
                     <div class="input-container">
                         <textarea id="affirmationInput" placeholder=" "></textarea>
+                        <!-- ИСПРАВЛЕНО: Упрощенный текст placeholder -->
                         <div class="placeholder-text">
-                            Медленно и осознанно пишите ваш проект в точности как создали.<br>
-                            Проговаривайте вслух (или «про себя») с эмоциями, представляя детали.<br>
-                            Чем ярче образы и чувства, тем быстрее формируется связь.<br><br>
-                            <em>Пишите в настоящем времени, как будто это уже происходит. Используйте только позитивные формулировки. Эмоции усиливают эффект.</em>
+                            Пишите ваш проект точно как создали.<br>
+                            Проговаривайте вслух с эмоциями, представляя детали.<br>
+                            Эмоции и образы ускоряют формирование связи.
+                            Чем ярче образ, тем быстрее формироуется связь.
+                            Пишите в настоящем времени, как будто уже происходит.
                         </div>
                     </div>
                     
@@ -1451,18 +1412,7 @@
                 </div>
             </div>
 
-            <!-- Поделиться -->
-            <div class="share-section">
-                <div class="share-title">
-                    <i class="fas fa-share-alt share-icon"></i>
-                    <h3>Поделиться приложением</h3>
-                </div>
-                <p style="color: var(--gray); margin-bottom: 15px; font-size: 0.9rem;">Помогите другим начать создавать свою реальность</p>
-                <button class="share-button" id="shareButton">
-                    <i class="fas fa-paper-plane"></i>
-                    <span>Перейти в бот</span>
-                </button>
-            </div>
+            <!-- ИСПРАВЛЕНО: Удален блок "Поделиться приложением" -->
         </div>
 
         <!-- Вкладка: Проекты -->
@@ -1694,7 +1644,6 @@
         const neuronCanvas = document.getElementById('neuronCanvas');
         const neuronStage = document.getElementById('neuronStage');
         const backgroundNeurons = document.getElementById('backgroundNeurons');
-        const shareButton = document.getElementById('shareButton');
         const donationAddressElement = document.getElementById('donationAddress');
 
         // =====================
@@ -1720,11 +1669,8 @@
                 updatePlaceholderText();
             }
             
-            // Адаптация для мобильных устройств
-            if ('ontouchstart' in window) {
-                document.body.classList.add('touch-device');
-                setupTouchDragAndDrop();
-            }
+            // Настройка drag and drop для всех устройств
+            setupDragAndDrop();
         });
 
         // =====================
@@ -1804,10 +1750,9 @@
         function updatePlaceholderText() {
             const placeholder = document.querySelector('.placeholder-text');
             if (appState.currentGoal) {
-                placeholder.innerHTML = `Медленно и осознанно пишите ваш проект в точности как создали.<br>
-                Проговаривайте вслух (или «про себя») с эмоциями, представляя детали.<br>
-                Чем ярче образы и чувства, тем быстрее формируется связь.<br><br>
-                <em>Пишите в настоящем времени, как будто это уже происходит. Используйте только позитивные формулировки. Эмоции усиливают эффект.</em>`;
+                placeholder.innerHTML = `Пишите ваш проект точно как создали.<br>
+                Проговаривайте вслух с эмоциями, представляя детали.<br>
+                Эмоции и образы ускоряют формирование связи.`;
             }
         }
 
@@ -1932,144 +1877,111 @@
 
             completeBtn.addEventListener('click', completeCurrentGoal);
             addWishBtn.addEventListener('click', addNewWishItem);
-            shareButton.addEventListener('click', shareAppLink);
-            
-            if (!('ontouchstart' in window)) {
-                setupDragAndDrop();
-            }
         }
 
         // =====================
-        // TOUCH ДРАГ-ЭНД-ДРОП ДЛЯ МОБИЛЬНЫХ
-        // =====================
-        function setupTouchDragAndDrop() {
-            let touchStartX = 0;
-            let touchStartY = 0;
-            let touchMoved = false;
-            let longPressTimer = null;
-            let currentTouchItem = null;
-
-            // Обработка касаний для проектов
-            document.addEventListener('touchstart', function(e) {
-                const wishItem = e.target.closest('.wish-item');
-                if (!wishItem) return;
-
-                const touch = e.touches[0];
-                touchStartX = touch.clientX;
-                touchStartY = touch.clientY;
-                touchMoved = false;
-                currentTouchItem = wishItem;
-
-                // Таймер для длинного нажатия
-                longPressTimer = setTimeout(() => {
-                    if (!touchMoved) {
-                        wishItem.classList.add('touch-dragging');
-                        activeDropZone.classList.add('touch-active');
-                        touchMoved = true;
-                    }
-                }, 500);
-            }, { passive: true });
-
-            document.addEventListener('touchmove', function(e) {
-                if (!currentTouchItem || !longPressTimer) return;
-
-                const touch = e.touches[0];
-                const deltaX = Math.abs(touch.clientX - touchStartX);
-                const deltaY = Math.abs(touch.clientY - touchStartY);
-
-                // Если движение достаточно большое
-                if (deltaX > 10 || deltaY > 10) {
-                    touchMoved = true;
-                    clearTimeout(longPressTimer);
-                    
-                    if (currentTouchItem.classList.contains('touch-dragging')) {
-                        // Подсвечиваем зону drop
-                        const dropZoneRect = activeDropZone.getBoundingClientRect();
-                        const touchY = touch.clientY;
-                        
-                        if (touchY >= dropZoneRect.top && touchY <= dropZoneRect.bottom) {
-                            activeDropZone.classList.add('touch-active');
-                        } else {
-                            activeDropZone.classList.remove('touch-active');
-                        }
-                    }
-                }
-            }, { passive: true });
-
-            document.addEventListener('touchend', function(e) {
-                if (longPressTimer) {
-                    clearTimeout(longPressTimer);
-                    longPressTimer = null;
-                }
-
-                if (currentTouchItem) {
-                    if (currentTouchItem.classList.contains('touch-dragging')) {
-                        currentTouchItem.classList.remove('touch-dragging');
-                        
-                        // Проверяем, был ли отпущен над зоной drop
-                        const dropZoneRect = activeDropZone.getBoundingClientRect();
-                        const touch = e.changedTouches[0];
-                        
-                        if (touch.clientY >= dropZoneRect.top && 
-                            touch.clientY <= dropZoneRect.bottom &&
-                            touch.clientX >= dropZoneRect.left && 
-                            touch.clientX <= dropZoneRect.right) {
-                            
-                            const itemId = currentTouchItem.getAttribute('data-id');
-                            if (itemId) {
-                                activateWishItem(parseInt(itemId));
-                            }
-                        }
-                        
-                        activeDropZone.classList.remove('touch-active');
-                    }
-                    
-                    currentTouchItem = null;
-                }
-            });
-
-            // Обработка кликов по проектам (короткое нажатие)
-            document.addEventListener('click', function(e) {
-                const wishItem = e.target.closest('.wish-item');
-                if (!wishItem) return;
-
-                // Если это не действие внутри проекта (кнопки и т.д.)
-                if (!e.target.closest('.wish-actions')) {
-                    const itemId = wishItem.getAttribute('data-id');
-                    if (itemId && !touchMoved) {
-                        // Простое нажатие - показываем меню
-                        showWishItemMenu(parseInt(itemId), wishItem);
-                    }
-                }
-            });
-        }
-
-        // =====================
-        // DRAG-AND-DROP ДЛЯ ДЕСКТОПА
+        // ИСПРАВЛЕННЫЙ DRAG-AND-DROP ДЛЯ ВСЕХ УСТРОЙСТВ
         // =====================
         function setupDragAndDrop() {
             let draggedItem = null;
+            let dragStartX = 0;
+            let dragStartY = 0;
+            let isDragging = false;
             
+            // Функции для десктопа
             function handleDragStart(e) {
-                draggedItem = e.target.closest('.wish-item');
-                if (draggedItem) {
-                    draggedItem.classList.add('touch-dragging');
-                    e.dataTransfer.setData('text/plain', draggedItem.getAttribute('data-id'));
+                if (e.type === 'dragstart') {
+                    e.dataTransfer.setData('text/plain', e.target.getAttribute('data-id'));
                     e.dataTransfer.effectAllowed = 'move';
+                }
+                
+                draggedItem = e.target.closest('.wish-item');
+                if (!draggedItem) return;
+                
+                // Запоминаем начальную позицию для мобильных
+                if (e.type === 'touchstart') {
+                    const touch = e.touches[0];
+                    dragStartX = touch.clientX;
+                    dragStartY = touch.clientY;
+                    isDragging = false;
+                }
+                
+                draggedItem.classList.add('touch-dragging', 'draggable');
+            }
+            
+            function handleDragMove(e) {
+                if (!draggedItem || e.type !== 'touchmove') return;
+                
+                const touch = e.touches[0];
+                const deltaX = Math.abs(touch.clientX - dragStartX);
+                const deltaY = Math.abs(touch.clientY - dragStartY);
+                
+                // Если движение достаточно большое, начинаем перетаскивание
+                if (!isDragging && (deltaX > 10 || deltaY > 10)) {
+                    isDragging = true;
+                    draggedItem.classList.add('touch-dragging');
+                    activeDropZone.classList.add('touch-active');
+                }
+                
+                // Подсвечиваем зону drop при перетаскивании
+                if (isDragging) {
+                    const dropZoneRect = activeDropZone.getBoundingClientRect();
+                    const touchY = touch.clientY;
+                    
+                    if (touchY >= dropZoneRect.top && touchY <= dropZoneRect.bottom) {
+                        activeDropZone.classList.add('touch-active');
+                    } else {
+                        activeDropZone.classList.remove('touch-active');
+                    }
                 }
             }
             
-            function handleDragEnd() {
-                if (draggedItem) {
-                    draggedItem.classList.remove('touch-dragging');
-                    draggedItem = null;
+            function handleDragEnd(e) {
+                if (!draggedItem) return;
+                
+                // Для мобильных: проверяем, был ли отпущен над зоной drop
+                if (e.type === 'touchend' && isDragging) {
+                    const dropZoneRect = activeDropZone.getBoundingClientRect();
+                    const touch = e.changedTouches[0];
+                    
+                    if (touch.clientY >= dropZoneRect.top && 
+                        touch.clientY <= dropZoneRect.bottom &&
+                        touch.clientX >= dropZoneRect.left && 
+                        touch.clientX <= dropZoneRect.right) {
+                        
+                        const itemId = draggedItem.getAttribute('data-id');
+                        if (itemId) {
+                            activateWishItem(parseInt(itemId));
+                        }
+                    }
+                    
+                    activeDropZone.classList.remove('touch-active');
                 }
+                
+                draggedItem.classList.remove('touch-dragging', 'draggable');
+                draggedItem = null;
+                isDragging = false;
+            }
+            
+            function handleDrop(e) {
+                e.preventDefault();
                 activeDropZone.classList.remove('touch-active');
+                
+                let itemId;
+                if (e.type === 'drop') {
+                    itemId = e.dataTransfer.getData('text/plain');
+                }
+                
+                if (itemId) {
+                    activateWishItem(parseInt(itemId));
+                }
             }
             
             function handleDragOver(e) {
                 e.preventDefault();
-                e.dataTransfer.dropEffect = 'move';
+                if (e.type === 'dragover') {
+                    e.dataTransfer.dropEffect = 'move';
+                }
                 activeDropZone.classList.add('touch-active');
             }
             
@@ -2077,117 +1989,45 @@
                 activeDropZone.classList.remove('touch-active');
             }
             
-            function handleDrop(e) {
-                e.preventDefault();
-                activeDropZone.classList.remove('touch-active');
-                const itemId = e.dataTransfer.getData('text/plain');
-                if (itemId) {
-                    activateWishItem(parseInt(itemId));
-                }
+            // Добавляем обработчики для всех элементов wish-item
+            function addDragListeners() {
+                document.querySelectorAll('.wish-item').forEach(item => {
+                    // Для десктопа
+                    item.setAttribute('draggable', 'true');
+                    item.addEventListener('dragstart', handleDragStart);
+                    item.addEventListener('dragend', handleDragEnd);
+                    
+                    // Для мобильных
+                    item.addEventListener('touchstart', handleDragStart, { passive: true });
+                    item.addEventListener('touchmove', handleDragMove, { passive: true });
+                    item.addEventListener('touchend', handleDragEnd);
+                });
             }
-
-            // Добавляем обработчики для desktop
-            document.querySelectorAll('.wish-item').forEach(item => {
-                item.setAttribute('draggable', 'true');
-                item.addEventListener('dragstart', handleDragStart);
-                item.addEventListener('dragend', handleDragEnd);
-            });
-
+            
+            // Добавляем обработчики для зоны drop
             activeDropZone.addEventListener('dragover', handleDragOver);
             activeDropZone.addEventListener('dragenter', handleDragOver);
             activeDropZone.addEventListener('dragleave', handleDragLeave);
             activeDropZone.addEventListener('drop', handleDrop);
-        }
-
-        // =====================
-        // МЕНЮ ДЛЯ ПРОЕКТОВ НА МОБИЛЬНЫХ
-        // =====================
-        function showWishItemMenu(id, element) {
-            // Создаем меню
-            const menu = document.createElement('div');
-            menu.className = 'wish-item-menu';
-            menu.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.7);
-                backdrop-filter: blur(10px);
-                z-index: 1001;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-end;
-                animation: fadeIn 0.3s ease;
-            `;
-
-            const menuContent = document.createElement('div');
-            menuContent.style.cssText = `
-                background: var(--glass-dark);
-                border-radius: 20px 20px 0 0;
-                padding: 20px;
-                margin-top: auto;
-            `;
-
-            const buttons = [
-                { text: 'Начать проект', icon: 'fa-play', action: () => activateWishItem(id) },
-                { text: 'Редактировать', icon: 'fa-edit', action: () => editWishItem(id) },
-                { text: 'Удалить', icon: 'fa-trash', action: () => removeWishItem(id), style: 'color: var(--error)' },
-                { text: 'Отмена', icon: 'fa-times', action: () => menu.remove(), style: 'color: var(--gray)' }
-            ];
-
-            buttons.forEach(btn => {
-                const button = document.createElement('button');
-                button.style.cssText = `
-                    width: 100%;
-                    padding: 16px;
-                    background: rgba(255, 255, 255, 0.05);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    border-radius: 12px;
-                    color: var(--light);
-                    font-family: 'Space Grotesk', sans-serif;
-                    font-size: 1rem;
-                    font-weight: 600;
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    margin-bottom: 10px;
-                    cursor: pointer;
-                    transition: all 0.2s ease;
-                `;
-                if (btn.style) button.style.cssText += btn.style;
-
-                button.innerHTML = `
-                    <i class="fas ${btn.icon}"></i>
-                    <span>${btn.text}</span>
-                `;
-
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    btn.action();
-                    menu.remove();
-                });
-
-                button.addEventListener('touchstart', () => {
-                    button.style.transform = 'scale(0.98)';
-                });
-
-                button.addEventListener('touchend', () => {
-                    button.style.transform = 'scale(1)';
-                });
-
-                menuContent.appendChild(button);
-            });
-
-            menu.appendChild(menuContent);
-            document.body.appendChild(menu);
-
-            // Закрытие по клику на фон
-            menu.addEventListener('click', (e) => {
-                if (e.target === menu) {
-                    menu.remove();
+            
+            // Для мобильных: добавляем обработчики касаний для зоны drop
+            activeDropZone.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+            
+            activeDropZone.addEventListener('touchend', function(e) {
+                if (isDragging && draggedItem) {
+                    handleDrop(e);
                 }
             });
+            
+            // Инициализируем обработчики при загрузке и при каждом обновлении списка
+            addDragListeners();
+            
+            // Обновляем обработчики при изменении списка
+            const observer = new MutationObserver(addDragListeners);
+            observer.observe(wishlistItems, { childList: true });
+            observer.observe(completedItems, { childList: true });
         }
 
         // =====================
@@ -2338,8 +2178,9 @@
             } else {
                 appState.wishlist.forEach(item => {
                     const wishItem = document.createElement('div');
-                    wishItem.className = `wish-item ${item.active ? 'active' : ''}`;
+                    wishItem.className = `wish-item ${item.active ? 'active' : ''} draggable`;
                     wishItem.setAttribute('data-id', item.id);
+                    wishItem.setAttribute('draggable', 'true');
                     
                     const date = new Date(item.createdAt);
                     const formattedDate = date.toLocaleDateString('ru-RU', {
@@ -2366,15 +2207,6 @@
                         </div>
                     `;
                     
-                    // Для touch устройств
-                    if ('ontouchstart' in window) {
-                        wishItem.addEventListener('click', (e) => {
-                            if (!e.target.closest('.wish-actions')) {
-                                showWishItemMenu(item.id, wishItem);
-                            }
-                        });
-                    }
-                    
                     wishlistItems.appendChild(wishItem);
                 });
             }
@@ -2400,6 +2232,7 @@
                 appState.completed.forEach(item => {
                     const completedItem = document.createElement('div');
                     completedItem.className = 'wish-item completed';
+                    completedItem.setAttribute('data-id', item.id);
                     
                     const completedDate = new Date(item.completedAt);
                     const createdDate = new Date(item.createdAt);
@@ -2429,86 +2262,6 @@
                             </button>
                         </div>
                     `;
-                    
-                    // Для touch устройств
-                    if ('ontouchstart' in window) {
-                        completedItem.addEventListener('click', (e) => {
-                            if (!e.target.closest('.wish-actions')) {
-                                const menu = document.createElement('div');
-                                menu.style.cssText = `
-                                    position: fixed;
-                                    top: 0;
-                                    left: 0;
-                                    right: 0;
-                                    bottom: 0;
-                                    background: rgba(0, 0, 0, 0.7);
-                                    backdrop-filter: blur(10px);
-                                    z-index: 1001;
-                                    display: flex;
-                                    flex-direction: column;
-                                    justify-content: flex-end;
-                                    animation: fadeIn 0.3s ease;
-                                `;
-
-                                const menuContent = document.createElement('div');
-                                menuContent.style.cssText = `
-                                    background: var(--glass-dark);
-                                    border-radius: 20px 20px 0 0;
-                                    padding: 20px;
-                                    margin-top: auto;
-                                `;
-
-                                const buttons = [
-                                    { text: 'Восстановить проект', icon: 'fa-redo', action: () => restoreWishItem(item.id) },
-                                    { text: 'Отмена', icon: 'fa-times', action: () => menu.remove(), style: 'color: var(--gray)' }
-                                ];
-
-                                buttons.forEach(btn => {
-                                    const button = document.createElement('button');
-                                    button.style.cssText = `
-                                        width: 100%;
-                                        padding: 16px;
-                                        background: rgba(255, 255, 255, 0.05);
-                                        border: 1px solid rgba(255, 255, 255, 0.1);
-                                        border-radius: 12px;
-                                        color: var(--light);
-                                        font-family: 'Space Grotesk', sans-serif;
-                                        font-size: 1rem;
-                                        font-weight: 600;
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 12px;
-                                        margin-bottom: 10px;
-                                        cursor: pointer;
-                                        transition: all 0.2s ease;
-                                    `;
-                                    if (btn.style) button.style.cssText += btn.style;
-
-                                    button.innerHTML = `
-                                        <i class="fas ${btn.icon}"></i>
-                                        <span>${btn.text}</span>
-                                    `;
-
-                                    button.addEventListener('click', (e) => {
-                                        e.stopPropagation();
-                                        btn.action();
-                                        menu.remove();
-                                    });
-
-                                    menuContent.appendChild(button);
-                                });
-
-                                menu.appendChild(menuContent);
-                                document.body.appendChild(menu);
-
-                                menu.addEventListener('click', (e) => {
-                                    if (e.target === menu) {
-                                        menu.remove();
-                                    }
-                                });
-                            }
-                        });
-                    }
                     
                     completedItems.appendChild(completedItem);
                 });
@@ -2900,34 +2653,6 @@
         // =====================
         // НОВЫЕ ФУНКЦИИ
         // =====================
-        function shareAppLink() {
-            // Перенаправляем в Telegram бота
-            window.open('https://t.me/Life_lab_bot', '_blank');
-        }
-
-        function copyToClipboardAndNotify(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showNotification("Ссылка скопирована", "Теперь вы можете поделиться ей", "success");
-            }).catch(err => {
-                console.error('Copy error: ', err);
-                
-                // Fallback для старых браузеров
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                
-                try {
-                    document.execCommand('copy');
-                    showNotification("Ссылка скопирована", "Теперь вы можете поделиться ей", "success");
-                } catch (e) {
-                    showNotification("Ошибка", "Не удалось скопировать ссылку", "error");
-                }
-                
-                document.body.removeChild(textArea);
-            });
-        }
-
         window.copyDonationAddress = function() {
             const address = donationAddressElement.textContent;
             navigator.clipboard.writeText(address).then(() => {
