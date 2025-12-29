@@ -3,20 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0A0F1C">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Life Lab</title>
+    
+    <!-- Preconnect для шрифтов -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600&family=Geist:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* Обновлённые стили с улучшенным UX/UI */
-        * {
+        /* КРИТИЧЕСКИЕ СТИЛИ - загружаются сразу */
+        body {
+            background: linear-gradient(135deg, #0A0F1C 0%, #0F172A 100%);
+            color: #F8FAFC;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            font-family: 'Space Grotesk', 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-
+        
+        /* Telegram App адаптация */
+        body.telegram-app {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+        
+        /* Остальные стили */
         :root {
             --primary: #8B5CF6;
             --primary-light: #A78BFA;
@@ -49,25 +71,11 @@
             --glass-dark: rgba(15, 23, 42, 0.8);
         }
 
-        body {
-            font-family: 'Space Grotesk', 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
-            color: var(--light);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            font-weight: 400;
-            cursor: default; /* Добавлено для улучшения UX */
-        }
-
-        /* Telegram App адаптация */
-        body.telegram-app {
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
-            padding-left: env(safe-area-inset-left);
-            padding-right: env(safe-area-inset-right);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .background-neurons {
@@ -79,38 +87,103 @@
             z-index: -1;
             pointer-events: none;
             overflow: hidden;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+        }
+
+        /* Стиль для контура мозга - теперь более заметный */
+        .brain-outline {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            opacity: 0.12; /* Увеличил opacity для лучшей видимости */
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 30% 50%, 
+                    rgba(139, 92, 246, 0.15) 0%, 
+                    transparent 50%),
+                radial-gradient(circle at 70% 50%, 
+                    rgba(16, 185, 129, 0.15) 0%, 
+                    transparent 50%);
+            border-radius: 50% 30% 30% 50%;
+            filter: blur(25px); /* Увеличил размытие для плавности */
+            box-shadow: 
+                inset 0 0 100px rgba(139, 92, 246, 0.1),
+                inset 0 0 50px rgba(16, 185, 129, 0.08);
+        }
+
+        /* Дополнительные детали мозга */
+        .brain-detail {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.08;
+            filter: blur(10px);
+        }
+
+        .brain-detail-1 {
+            width: 30%;
+            height: 20%;
+            top: 20%;
+            left: 25%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+        }
+
+        .brain-detail-2 {
+            width: 25%;
+            height: 15%;
+            top: 40%;
+            left: 20%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+        }
+
+        .brain-detail-3 {
+            width: 35%;
+            height: 25%;
+            top: 30%;
+            right: 20%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, transparent 70%);
+        }
+
+        .brain-detail-4 {
+            width: 20%;
+            height: 15%;
+            bottom: 25%;
+            right: 30%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
         }
 
         .neuron-particle {
             position: absolute;
-            width: 6px;
-            height: 6px;
+            width: 4px;
+            height: 4px;
             background: var(--primary-light);
             border-radius: 50%;
-            box-shadow: 0 0 15px var(--primary-light), 0 0 30px var(--primary-light);
-            animation: floatParticle 20s infinite linear;
+            box-shadow: 0 0 10px var(--primary-light), 0 0 20px var(--primary-light);
+            animation: floatParticle 15s infinite linear;
             opacity: 0.7;
         }
 
         @keyframes floatParticle {
             0% {
-                transform: translate(0, 0);
+                transform: translate(0, 0) scale(1);
                 opacity: 0.7;
             }
             25% {
-                transform: translate(100px, 100px);
+                transform: translate(80px, 80px) scale(1.2);
                 opacity: 1;
             }
             50% {
-                transform: translate(200px, 0);
+                transform: translate(160px, 0) scale(1);
                 opacity: 0.7;
             }
             75% {
-                transform: translate(100px, -100px);
-                opacity: 1;
+                transform: translate(80px, -80px) scale(1.1);
+                opacity: 0.9;
             }
             100% {
-                transform: translate(0, 0);
+                transform: translate(0, 0) scale(1);
                 opacity: 0.7;
             }
         }
@@ -120,31 +193,18 @@
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
             animation: pulseConnection 3s infinite;
+            transform-origin: 0 0;
         }
 
         @keyframes pulseConnection {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.8; }
-        }
-
-        /* Стиль для контура мозга */
-        .brain-outline {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            height: 80%;
-            opacity: 0.05;
-            pointer-events: none;
-            background: radial-gradient(circle at 30% 50%, 
-                rgba(139, 92, 246, 0.1) 0%, 
-                transparent 50%),
-                radial-gradient(circle at 70% 50%, 
-                rgba(16, 185, 129, 0.1) 0%, 
-                transparent 50%);
-            border-radius: 50% 30% 30% 50%;
-            filter: blur(20px);
+            0%, 100% { 
+                opacity: 0.2; 
+                box-shadow: 0 0 5px var(--primary-light);
+            }
+            50% { 
+                opacity: 0.8; 
+                box-shadow: 0 0 15px var(--primary-light);
+            }
         }
 
         .container {
@@ -154,6 +214,13 @@
             padding-bottom: 100px;
             position: relative;
             z-index: 1;
+            opacity: 0;
+            animation: fadeInContent 0.5s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes fadeInContent {
+            to { opacity: 1; }
         }
 
         @media (max-width: 768px) {
@@ -371,11 +438,11 @@
 
         /* ИСПРАВЛЕНО: Увеличена высота, уменьшен текст */
         .current-goal-text {
-            font-size: 1.1rem; /* Уменьшен размер текста */
+            font-size: 1.1rem;
             font-weight: 500;
             margin: 15px 0;
             line-height: 1.4;
-            min-height: 100px; /* Увеличена минимальная высота */
+            min-height: 100px;
             padding: 20px;
             background: rgba(15, 23, 42, 0.5);
             border-radius: var(--border-radius-sm);
@@ -388,8 +455,8 @@
         }
 
         .current-goal-text span {
-            max-height: 100px; /* Соответствует новой высоте */
-            overflow: auto; /* Добавлена прокрутка если не умещается */
+            max-height: 100px;
+            overflow: auto;
             display: block;
             width: 100%;
         }
@@ -520,12 +587,12 @@
             left: 20px;
             right: 20px;
             color: rgba(148, 163, 184, 0.6);
-            font-size: 0.8rem; /* Уменьшен размер шрифта */
+            font-size: 0.8rem;
             line-height: 1.4;
             pointer-events: none;
             transition: var(--transition);
             font-family: 'Space Grotesk', sans-serif;
-            font-style: italic; /* Добавлен курсив */
+            font-style: italic;
         }
 
         textarea:focus + .placeholder-text,
@@ -688,8 +755,6 @@
             height: 100%;
             display: block;
         }
-
-        /* ИСПРАВЛЕНО: Удален блок "Поделиться приложением" */
 
         /* Wishlist */
         .wishlist-container {
@@ -1256,7 +1321,7 @@
                 top: 16px;
                 left: 16px;
                 right: 16px;
-                font-size: 0.75rem; /* Уменьшен для мобильных */
+                font-size: 0.75rem;
             }
             
             .canvas-container {
@@ -1317,10 +1382,14 @@
         }
     </style>
 </head>
-<body>
-    <!-- Анимированный фон с нейронами -->
+<body style="background: #0A0F1C;">
+    <!-- Анимированный фон с нейронами и мозгом -->
     <div class="background-neurons" id="backgroundNeurons">
         <div class="brain-outline"></div>
+        <div class="brain-detail brain-detail-1"></div>
+        <div class="brain-detail brain-detail-2"></div>
+        <div class="brain-detail brain-detail-3"></div>
+        <div class="brain-detail brain-detail-4"></div>
     </div>
 
     <div class="container">
@@ -1616,6 +1685,14 @@
 
     <script>
         // =====================
+        // БЫСТРАЯ ИНИЦИАЛИЗАЦИЯ ДЛЯ ИЗБЕЖАНИЯ БЕЛОГО ФОНА
+        // =====================
+        
+        // Немедленно применяем темный фон
+        document.body.style.backgroundColor = '#0A0F1C';
+        document.body.style.background = 'linear-gradient(135deg, #0A0F1C 0%, #0F172A 100%)';
+        
+        // =====================
         // ОСНОВНЫЕ ПЕРЕМЕННЫЕ
         // =====================
         let appState = {
@@ -1671,7 +1748,7 @@
             }
             
             loadAppState();
-            createBrainPattern(); // Заменяем createBackgroundNeurons на createBrainPattern
+            createBrainPattern(); // Создаем фон с мозгом
             setupEventListeners();
             initializeWishlist();
             updateUI();
@@ -1685,7 +1762,7 @@
             // Настройка drag and drop для всех устройств
             setupDragAndDrop();
             
-            // ИСПРАВЛЕНО: Добавляем обработчик клика по документу для скрытия клавиатуры
+            // Обработчик клика для скрытия клавиатуры
             setupClickToDismiss();
         });
 
@@ -1693,13 +1770,9 @@
         // ФОН В ФОРМЕ МОЗГА С НЕЙРОНАМИ
         // =====================
         function createBrainPattern() {
-            // Создаем контур мозга
-            const brainOutline = document.createElement('div');
-            brainOutline.className = 'brain-outline';
-            backgroundNeurons.appendChild(brainOutline);
-            
             // Создаем нейроны (частицы) в форме мозга
-            const neuronCount = 15; // Уменьшил количество частиц
+            const neuronCount = 12; // Уменьшил количество частиц для более чистого вида
+            
             for (let i = 0; i < neuronCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'neuron-particle';
@@ -1708,22 +1781,22 @@
                 let x, y;
                 if (i < neuronCount / 2) {
                     // Левое полушарие
-                    x = 30 + Math.random() * 20;
+                    x = 30 + Math.random() * 15;
                     y = 40 + Math.random() * 20;
                 } else {
                     // Правое полушарие
-                    x = 70 + Math.random() * 20;
+                    x = 70 + Math.random() * 15;
                     y = 40 + Math.random() * 20;
                 }
                 
                 particle.style.left = `${x}%`;
                 particle.style.top = `${y}%`;
-                particle.style.animationDuration = `${15 + Math.random() * 25}s`;
-                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particle.style.animationDuration = `${12 + Math.random() * 20}s`;
+                particle.style.animationDelay = `${Math.random() * 3}s`;
                 particle.style.opacity = 0.6 + Math.random() * 0.3;
                 
                 // Добавляем вариацию размера
-                const size = 4 + Math.random() * 4;
+                const size = 3 + Math.random() * 3;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
@@ -1733,47 +1806,50 @@
             // Создаем соединения между нейронами
             setTimeout(() => {
                 createNeuronConnections();
-            }, 1000);
+            }, 800);
         }
 
         function createNeuronConnections() {
             const particles = document.querySelectorAll('.neuron-particle');
-            const connectionsToCreate = Math.floor(particles.length * 1.5); // Уменьшил количество соединений
+            const connectionsToCreate = Math.floor(particles.length * 1.2); // Еще меньше соединений
             
             // Создаем только несколько соединений
             for (let i = 0; i < connectionsToCreate; i++) {
                 const index1 = Math.floor(Math.random() * particles.length);
-                const index2 = Math.floor(Math.random() * particles.length);
+                let index2;
                 
-                if (index1 !== index2) {
-                    const particle1 = particles[index1];
-                    const particle2 = particles[index2];
-                    
-                    const connection = document.createElement('div');
-                    connection.className = 'neuron-connection';
-                    
-                    // Позиционируем соединение между частицами
-                    const rect1 = particle1.getBoundingClientRect();
-                    const rect2 = particle2.getBoundingClientRect();
-                    
-                    const x1 = rect1.left + rect1.width / 2;
-                    const y1 = rect1.top + rect1.height / 2;
-                    const x2 = rect2.left + rect2.width / 2;
-                    const y2 = rect2.top + rect2.height / 2;
-                    
-                    const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-                    const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-                    
-                    connection.style.width = `${length}px`;
-                    connection.style.left = `${x1}px`;
-                    connection.style.top = `${y1}px`;
-                    connection.style.transform = `rotate(${angle}deg)`;
-                    connection.style.transformOrigin = '0 0';
-                    connection.style.animationDelay = `${Math.random() * 2}s`;
-                    connection.style.opacity = 0.3 + Math.random() * 0.2; // Делаем соединения более прозрачными
-                    
-                    backgroundNeurons.appendChild(connection);
-                }
+                // Стараемся соединять частицы в одном полушарии
+                do {
+                    index2 = Math.floor(Math.random() * particles.length);
+                } while (index1 === index2);
+                
+                const particle1 = particles[index1];
+                const particle2 = particles[index2];
+                
+                const connection = document.createElement('div');
+                connection.className = 'neuron-connection';
+                
+                // Позиционируем соединение между частицами
+                const rect1 = particle1.getBoundingClientRect();
+                const rect2 = particle2.getBoundingClientRect();
+                
+                const x1 = rect1.left + rect1.width / 2;
+                const y1 = rect1.top + rect1.height / 2;
+                const x2 = rect2.left + rect2.width / 2;
+                const y2 = rect2.top + rect2.height / 2;
+                
+                const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+                const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                
+                connection.style.width = `${length}px`;
+                connection.style.left = `${x1}px`;
+                connection.style.top = `${y1}px`;
+                connection.style.transform = `rotate(${angle}deg)`;
+                connection.style.transformOrigin = '0 0';
+                connection.style.animationDelay = `${Math.random() * 1.5}s`;
+                connection.style.opacity = 0.3 + Math.random() * 0.2;
+                
+                backgroundNeurons.appendChild(connection);
             }
         }
 
@@ -1790,7 +1866,7 @@
                     // На мобильных устройствах это скроет клавиатуру
                     if ('ontouchstart' in window) {
                         // Дополнительная проверка для мобильных
-                        document.activeElement.blur();
+                        document.activeElement?.blur();
                     }
                 }
             });
@@ -1800,7 +1876,7 @@
                 if (!affirmationInput.contains(event.target)) {
                     affirmationInput.blur();
                 }
-            });
+            }, { passive: true });
         }
 
         // =====================
@@ -1824,8 +1900,9 @@
         function updatePlaceholderText() {
             const placeholder = document.querySelector('.placeholder-text');
             if (appState.currentGoal) {
-                placeholder.innerHTML = `Пишите ваш проект точно как создали.
-                Проговаривайте вслух с эмоциями, представляя детали. Эмоции и образы ускоряют формирование связи.<br>
+                placeholder.innerHTML = `Пишите ваш проект точно как создали.<br>
+                Проговаривайте вслух с эмоциями, представляя детали.<br>
+                Эмоции и образы ускоряют формирование связи.<br>
                 Чем ярче образ, тем быстрее формируется нейронная связь.<br>
                 Пишите в настоящем времени, как будто это уже происходит.`;
             }
@@ -2761,4 +2838,3 @@
     </script>
 </body>
 </html>
-
