@@ -90,7 +90,7 @@
             background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
         }
 
-        /* Стиль для контура мозга - теперь более заметный */
+        /* Улучшенная видимость контура мозга */
         .brain-outline {
             position: absolute;
             top: 50%;
@@ -98,28 +98,28 @@
             transform: translate(-50%, -50%);
             width: 80%;
             height: 80%;
-            opacity: 0.12; /* Увеличил opacity для лучшей видимости */
+            opacity: 0.18; /* Увеличена прозрачность */
             pointer-events: none;
             background: 
                 radial-gradient(circle at 30% 50%, 
-                    rgba(139, 92, 246, 0.15) 0%, 
+                    rgba(139, 92, 246, 0.25) 0%, /* Увеличена интенсивность */
                     transparent 50%),
                 radial-gradient(circle at 70% 50%, 
-                    rgba(16, 185, 129, 0.15) 0%, 
+                    rgba(16, 185, 129, 0.25) 0%, /* Увеличена интенсивность */
                     transparent 50%);
             border-radius: 50% 30% 30% 50%;
-            filter: blur(25px); /* Увеличил размытие для плавности */
+            filter: blur(30px); /* Увеличен blur */
             box-shadow: 
-                inset 0 0 100px rgba(139, 92, 246, 0.1),
-                inset 0 0 50px rgba(16, 185, 129, 0.08);
+                inset 0 0 120px rgba(139, 92, 246, 0.15),
+                inset 0 0 60px rgba(16, 185, 129, 0.12);
         }
 
         /* Дополнительные детали мозга */
         .brain-detail {
             position: absolute;
             border-radius: 50%;
-            opacity: 0.08;
-            filter: blur(10px);
+            opacity: 0.10;
+            filter: blur(15px);
         }
 
         .brain-detail-1 {
@@ -127,7 +127,7 @@
             height: 20%;
             top: 20%;
             left: 25%;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
         }
 
         .brain-detail-2 {
@@ -135,7 +135,7 @@
             height: 15%;
             top: 40%;
             left: 20%;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.20) 0%, transparent 70%);
         }
 
         .brain-detail-3 {
@@ -143,7 +143,7 @@
             height: 25%;
             top: 30%;
             right: 20%;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, transparent 70%);
         }
 
         .brain-detail-4 {
@@ -151,40 +151,42 @@
             height: 15%;
             bottom: 25%;
             right: 30%;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, transparent 70%);
         }
 
+        /* Улучшенная анимация частиц */
         .neuron-particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 5px;
+            height: 5px;
             background: var(--primary-light);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--primary-light), 0 0 20px var(--primary-light);
-            animation: floatParticle 15s infinite linear;
-            opacity: 0.7;
+            box-shadow: 0 0 12px var(--primary-light), 0 0 24px var(--primary-light);
+            animation: floatParticle 20s infinite ease-in-out;
+            opacity: 0.8;
+            z-index: 1;
         }
 
         @keyframes floatParticle {
             0% {
                 transform: translate(0, 0) scale(1);
-                opacity: 0.7;
+                opacity: 0.6;
             }
             25% {
-                transform: translate(80px, 80px) scale(1.2);
+                transform: translate(40px, 40px) scale(1.4);
                 opacity: 1;
             }
             50% {
-                transform: translate(160px, 0) scale(1);
+                transform: translate(80px, 0) scale(1.1);
                 opacity: 0.7;
             }
             75% {
-                transform: translate(80px, -80px) scale(1.1);
+                transform: translate(40px, -40px) scale(1.3);
                 opacity: 0.9;
             }
             100% {
                 transform: translate(0, 0) scale(1);
-                opacity: 0.7;
+                opacity: 0.6;
             }
         }
 
@@ -194,16 +196,17 @@
             background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
             animation: pulseConnection 3s infinite;
             transform-origin: 0 0;
+            box-shadow: 0 0 8px var(--primary-light);
         }
 
         @keyframes pulseConnection {
             0%, 100% { 
-                opacity: 0.2; 
-                box-shadow: 0 0 5px var(--primary-light);
+                opacity: 0.3; 
+                box-shadow: 0 0 8px var(--primary-light);
             }
             50% { 
-                opacity: 0.8; 
-                box-shadow: 0 0 15px var(--primary-light);
+                opacity: 0.9; 
+                box-shadow: 0 0 20px var(--primary-light);
             }
         }
 
@@ -552,15 +555,15 @@
             font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Input Card */
+        /* ИСПРАВЛЕНО: Input Card - увеличены отступы и высота */
         .input-container {
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* Увеличено с 20px */
         }
 
         textarea {
             width: 100%;
-            min-height: 150px;
+            min-height: 180px; /* Увеличено с 150px */
             padding: 20px;
             background: rgba(15, 23, 42, 0.7);
             border: 2px solid rgba(139, 92, 246, 0.2);
@@ -580,19 +583,20 @@
             box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
         }
 
-        /* ИСПРАВЛЕНО: Обновленный placeholder текст с курсивом и меньшим размером */
+        /* ИСПРАВЛЕНО: Placeholder текст - увеличены отступы, уменьшен шрифт */
         .placeholder-text {
             position: absolute;
             top: 20px;
             left: 20px;
             right: 20px;
             color: rgba(148, 163, 184, 0.6);
-            font-size: 0.8rem;
+            font-size: 0.75rem; /* Уменьшен с 0.8rem */
             line-height: 1.4;
             pointer-events: none;
             transition: var(--transition);
             font-family: 'Space Grotesk', sans-serif;
             font-style: italic;
+            padding-bottom: 5px;
         }
 
         textarea:focus + .placeholder-text,
@@ -612,6 +616,18 @@
                 flex-direction: column;
                 gap: 12px;
                 margin-top: 15px;
+            }
+            
+            textarea {
+                min-height: 160px; /* Увеличено с 140px */
+                padding: 16px;
+            }
+            
+            .placeholder-text {
+                top: 16px;
+                left: 16px;
+                right: 16px;
+                font-size: 0.7rem; /* Еще немного уменьшен для мобильных */
             }
         }
 
@@ -1311,19 +1327,6 @@
                 font-size: 1.5rem;
             }
             
-            textarea {
-                min-height: 140px;
-                padding: 16px;
-                font-size: 0.95rem;
-            }
-            
-            .placeholder-text {
-                top: 16px;
-                left: 16px;
-                right: 16px;
-                font-size: 0.75rem;
-            }
-            
             .canvas-container {
                 height: 200px;
             }
@@ -1748,12 +1751,10 @@
             }
             
             loadAppState();
-            createBrainPattern(); // Создаем фон с мозгом
             setupEventListeners();
             initializeWishlist();
             updateUI();
             setupCanvas();
-            drawNeuronVisualization();
             
             if (appState.currentGoal) {
                 updatePlaceholderText();
@@ -1764,14 +1765,45 @@
             
             // Обработчик клика для скрытия клавиатуры
             setupClickToDismiss();
+            
+            // Создаем мозг с задержкой чтобы убедиться что DOM полностью загружен
+            setTimeout(() => {
+                createBrainPattern();
+                drawNeuronVisualization();
+            }, 300);
         });
 
         // =====================
-        // ФОН В ФОРМЕ МОЗГА С НЕЙРОНАМИ
+        // ФОН В ФОРМЕ МОЗГА С НЕЙРОНАМИ (ИСПРАВЛЕННАЯ ВЕРСИЯ)
         // =====================
         function createBrainPattern() {
+            // Очищаем предыдущие элементы
+            backgroundNeurons.innerHTML = '';
+            
+            // Восстанавливаем контур мозга
+            const brainOutline = document.createElement('div');
+            brainOutline.className = 'brain-outline';
+            backgroundNeurons.appendChild(brainOutline);
+            
+            // Восстанавливаем детали мозга
+            const detail1 = document.createElement('div');
+            detail1.className = 'brain-detail brain-detail-1';
+            backgroundNeurons.appendChild(detail1);
+            
+            const detail2 = document.createElement('div');
+            detail2.className = 'brain-detail brain-detail-2';
+            backgroundNeurons.appendChild(detail2);
+            
+            const detail3 = document.createElement('div');
+            detail3.className = 'brain-detail brain-detail-3';
+            backgroundNeurons.appendChild(detail3);
+            
+            const detail4 = document.createElement('div');
+            detail4.className = 'brain-detail brain-detail-4';
+            backgroundNeurons.appendChild(detail4);
+            
             // Создаем нейроны (частицы) в форме мозга
-            const neuronCount = 12; // Уменьшил количество частиц для более чистого вида
+            const neuronCount = 24; // Увеличено количество для лучшей видимости
             
             for (let i = 0; i < neuronCount; i++) {
                 const particle = document.createElement('div');
@@ -1781,39 +1813,53 @@
                 let x, y;
                 if (i < neuronCount / 2) {
                     // Левое полушарие
-                    x = 30 + Math.random() * 15;
+                    x = 25 + Math.random() * 20;
                     y = 40 + Math.random() * 20;
                 } else {
                     // Правое полушарие
-                    x = 70 + Math.random() * 15;
+                    x = 65 + Math.random() * 20;
                     y = 40 + Math.random() * 20;
                 }
                 
                 particle.style.left = `${x}%`;
                 particle.style.top = `${y}%`;
-                particle.style.animationDuration = `${12 + Math.random() * 20}s`;
-                particle.style.animationDelay = `${Math.random() * 3}s`;
-                particle.style.opacity = 0.6 + Math.random() * 0.3;
+                particle.style.animationDuration = `${15 + Math.random() * 20}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particle.style.opacity = 0.7 + Math.random() * 0.3;
                 
-                // Добавляем вариацию размера
-                const size = 3 + Math.random() * 3;
+                // Увеличиваем размер для лучшей видимости
+                const size = 5 + Math.random() * 4;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
+                
+                // Добавляем случайный цвет из градиента
+                const hue = Math.random() > 0.5 ? 250 : 160;
+                particle.style.background = `hsl(${hue}, 85%, 65%)`;
+                particle.style.boxShadow = `0 0 12px hsl(${hue}, 85%, 65%), 0 0 24px hsl(${hue}, 85%, 65%)`;
                 
                 backgroundNeurons.appendChild(particle);
             }
             
-            // Создаем соединения между нейронами
+            // Создаем соединения между нейронами с задержкой
             setTimeout(() => {
                 createNeuronConnections();
-            }, 800);
+            }, 1000);
+            
+            // Добавляем интервал для периодического обновления соединений
+            setInterval(() => {
+                // Обновляем только соединения, не частицы
+                document.querySelectorAll('.neuron-connection').forEach(conn => conn.remove());
+                createNeuronConnections();
+            }, 15000); // Каждые 15 секунд обновляем соединения
         }
 
         function createNeuronConnections() {
             const particles = document.querySelectorAll('.neuron-particle');
-            const connectionsToCreate = Math.floor(particles.length * 1.2); // Еще меньше соединений
+            if (particles.length < 2) return;
             
-            // Создаем только несколько соединений
+            const connectionsToCreate = Math.floor(particles.length * 1.5);
+            
+            // Создаем соединения
             for (let i = 0; i < connectionsToCreate; i++) {
                 const index1 = Math.floor(Math.random() * particles.length);
                 let index2;
@@ -1846,8 +1892,8 @@
                 connection.style.top = `${y1}px`;
                 connection.style.transform = `rotate(${angle}deg)`;
                 connection.style.transformOrigin = '0 0';
-                connection.style.animationDelay = `${Math.random() * 1.5}s`;
-                connection.style.opacity = 0.3 + Math.random() * 0.2;
+                connection.style.animationDelay = `${Math.random() * 2}s`;
+                connection.style.opacity = 0.3 + Math.random() * 0.3;
                 
                 backgroundNeurons.appendChild(connection);
             }
@@ -1884,6 +1930,8 @@
         // =====================
         function setupCanvas() {
             const canvasContainer = document.querySelector('.canvas-container');
+            if (!canvasContainer) return;
+            
             neuronCanvas.width = canvasContainer.clientWidth;
             neuronCanvas.height = canvasContainer.clientHeight;
             
@@ -2584,6 +2632,8 @@
         // =====================
         function drawNeuronVisualization() {
             const ctx = neuronCanvas.getContext('2d');
+            if (!ctx) return;
+            
             const width = neuronCanvas.width;
             const height = neuronCanvas.height;
             ctx.clearRect(0, 0, width, height);
