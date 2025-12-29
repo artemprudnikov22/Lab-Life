@@ -59,6 +59,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             font-weight: 400;
+            cursor: default; /* Добавлено для улучшения UX */
         }
 
         /* Telegram App адаптация */
@@ -124,6 +125,26 @@
         @keyframes pulseConnection {
             0%, 100% { opacity: 0.2; }
             50% { opacity: 0.8; }
+        }
+
+        /* Стиль для контура мозга */
+        .brain-outline {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            opacity: 0.05;
+            pointer-events: none;
+            background: radial-gradient(circle at 30% 50%, 
+                rgba(139, 92, 246, 0.1) 0%, 
+                transparent 50%),
+                radial-gradient(circle at 70% 50%, 
+                rgba(16, 185, 129, 0.1) 0%, 
+                transparent 50%);
+            border-radius: 50% 30% 30% 50%;
+            filter: blur(20px);
         }
 
         .container {
@@ -492,18 +513,19 @@
             box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
         }
 
-        /* ИСПРАВЛЕНО: Упрощен placeholder текст */
+        /* ИСПРАВЛЕНО: Обновленный placeholder текст с курсивом и меньшим размером */
         .placeholder-text {
             position: absolute;
             top: 20px;
             left: 20px;
             right: 20px;
             color: rgba(148, 163, 184, 0.6);
-            font-size: 0.85rem;
+            font-size: 0.8rem; /* Уменьшен размер шрифта */
             line-height: 1.4;
             pointer-events: none;
             transition: var(--transition);
             font-family: 'Space Grotesk', sans-serif;
+            font-style: italic; /* Добавлен курсив */
         }
 
         textarea:focus + .placeholder-text,
@@ -1234,7 +1256,7 @@
                 top: 16px;
                 left: 16px;
                 right: 16px;
-                font-size: 0.8rem;
+                font-size: 0.75rem; /* Уменьшен для мобильных */
             }
             
             .canvas-container {
@@ -1262,15 +1284,6 @@
             
             .wishlist-tab.active::after {
                 display: none;
-            }
-            
-            .share-section {
-                padding: 16px;
-            }
-            
-            .share-button {
-                padding: 10px 20px;
-                font-size: 0.9rem;
             }
         }
 
@@ -1305,8 +1318,10 @@
     </style>
 </head>
 <body>
-    <!-- Анимированный фон -->
-    <div class="background-neurons" id="backgroundNeurons"></div>
+    <!-- Анимированный фон с нейронами -->
+    <div class="background-neurons" id="backgroundNeurons">
+        <div class="brain-outline"></div>
+    </div>
 
     <div class="container">
         <header>
@@ -1374,13 +1389,13 @@
                     
                     <div class="input-container">
                         <textarea id="affirmationInput" placeholder=" "></textarea>
-                        <!-- ИСПРАВЛЕНО: Упрощенный текст placeholder -->
+                        <!-- ИСПРАВЛЕНО: Обновленный текст placeholder -->
                         <div class="placeholder-text">
                             Пишите ваш проект точно как создали.<br>
                             Проговаривайте вслух с эмоциями, представляя детали.<br>
-                            Эмоции и образы ускоряют формирование связи.
-                            Чем ярче образ, тем быстрее формироуется связь.
-                            Пишите в настоящем времени, как будто уже происходит.
+                            Эмоции и образы ускоряют формирование связи.<br>
+                            Чем ярче образ, тем быстрее формируется нейронная связь.<br>
+                            Пишите в настоящем времени, как будто это уже происходит.
                         </div>
                     </div>
                     
@@ -1411,8 +1426,6 @@
                     <canvas id="neuronCanvas"></canvas>
                 </div>
             </div>
-
-            <!-- ИСПРАВЛЕНО: Удален блок "Поделиться приложением" -->
         </div>
 
         <!-- Вкладка: Проекты -->
@@ -1658,7 +1671,7 @@
             }
             
             loadAppState();
-            createBackgroundNeurons();
+            createBrainPattern(); // Заменяем createBackgroundNeurons на createBrainPattern
             setupEventListeners();
             initializeWishlist();
             updateUI();
@@ -1671,25 +1684,53 @@
             
             // Настройка drag and drop для всех устройств
             setupDragAndDrop();
+            
+            // ИСПРАВЛЕНО: Добавляем обработчик клика по документу для скрытия клавиатуры
+            setupClickToDismiss();
         });
 
         // =====================
-        // АНИМИРОВАННЫЙ ФОН С ЯРКИМИ ЧАСТИЦАМИ
+        // ФОН В ФОРМЕ МОЗГА С НЕЙРОНАМИ
         // =====================
-        function createBackgroundNeurons() {
-            // Создаем яркие движущиеся частицы
-            for (let i = 0; i < 30; i++) {
+        function createBrainPattern() {
+            // Создаем контур мозга
+            const brainOutline = document.createElement('div');
+            brainOutline.className = 'brain-outline';
+            backgroundNeurons.appendChild(brainOutline);
+            
+            // Создаем нейроны (частицы) в форме мозга
+            const neuronCount = 15; // Уменьшил количество частиц
+            for (let i = 0; i < neuronCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'neuron-particle';
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Распределяем частицы в форме мозга (две полусферы)
+                let x, y;
+                if (i < neuronCount / 2) {
+                    // Левое полушарие
+                    x = 30 + Math.random() * 20;
+                    y = 40 + Math.random() * 20;
+                } else {
+                    // Правое полушарие
+                    x = 70 + Math.random() * 20;
+                    y = 40 + Math.random() * 20;
+                }
+                
+                particle.style.left = `${x}%`;
+                particle.style.top = `${y}%`;
                 particle.style.animationDuration = `${15 + Math.random() * 25}s`;
                 particle.style.animationDelay = `${Math.random() * 5}s`;
-                particle.style.opacity = 0.7 + Math.random() * 0.3;
+                particle.style.opacity = 0.6 + Math.random() * 0.3;
+                
+                // Добавляем вариацию размера
+                const size = 4 + Math.random() * 4;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
                 backgroundNeurons.appendChild(particle);
             }
             
-            // Создаем соединения между частицами
+            // Создаем соединения между нейронами
             setTimeout(() => {
                 createNeuronConnections();
             }, 1000);
@@ -1697,17 +1738,23 @@
 
         function createNeuronConnections() {
             const particles = document.querySelectorAll('.neuron-particle');
+            const connectionsToCreate = Math.floor(particles.length * 1.5); // Уменьшил количество соединений
             
-            particles.forEach((particle, index) => {
-                if (index < particles.length - 1) {
-                    const nextParticle = particles[index + 1];
+            // Создаем только несколько соединений
+            for (let i = 0; i < connectionsToCreate; i++) {
+                const index1 = Math.floor(Math.random() * particles.length);
+                const index2 = Math.floor(Math.random() * particles.length);
+                
+                if (index1 !== index2) {
+                    const particle1 = particles[index1];
+                    const particle2 = particles[index2];
                     
                     const connection = document.createElement('div');
                     connection.className = 'neuron-connection';
                     
                     // Позиционируем соединение между частицами
-                    const rect1 = particle.getBoundingClientRect();
-                    const rect2 = nextParticle.getBoundingClientRect();
+                    const rect1 = particle1.getBoundingClientRect();
+                    const rect2 = particle2.getBoundingClientRect();
                     
                     const x1 = rect1.left + rect1.width / 2;
                     const y1 = rect1.top + rect1.height / 2;
@@ -1723,8 +1770,35 @@
                     connection.style.transform = `rotate(${angle}deg)`;
                     connection.style.transformOrigin = '0 0';
                     connection.style.animationDelay = `${Math.random() * 2}s`;
+                    connection.style.opacity = 0.3 + Math.random() * 0.2; // Делаем соединения более прозрачными
                     
                     backgroundNeurons.appendChild(connection);
+                }
+            }
+        }
+
+        // =====================
+        // ИСПРАВЛЕНО: ОБРАБОТЧИК КЛИКА ДЛЯ СКРЫТИЯ КЛАВИАТУРЫ
+        // =====================
+        function setupClickToDismiss() {
+            document.addEventListener('click', function(event) {
+                // Если клик не по textarea и не по его содержимому
+                if (!affirmationInput.contains(event.target)) {
+                    // Убираем фокус с textarea
+                    affirmationInput.blur();
+                    
+                    // На мобильных устройствах это скроет клавиатуру
+                    if ('ontouchstart' in window) {
+                        // Дополнительная проверка для мобильных
+                        document.activeElement.blur();
+                    }
+                }
+            });
+            
+            // Также добавляем обработчик для touch-событий для лучшей поддержки мобильных
+            document.addEventListener('touchstart', function(event) {
+                if (!affirmationInput.contains(event.target)) {
+                    affirmationInput.blur();
                 }
             });
         }
@@ -1752,7 +1826,9 @@
             if (appState.currentGoal) {
                 placeholder.innerHTML = `Пишите ваш проект точно как создали.<br>
                 Проговаривайте вслух с эмоциями, представляя детали.<br>
-                Эмоции и образы ускоряют формирование связи.`;
+                Эмоции и образы ускоряют формирование связи.<br>
+                Чем ярче образ, тем быстрее формируется нейронная связь.<br>
+                Пишите в настоящем времени, как будто это уже происходит.`;
             }
         }
 
